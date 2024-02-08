@@ -2,6 +2,8 @@ package com.taru.users.service.impl;
 
 import com.taru.users.dto.UserDTO;
 import com.taru.users.entity.UserEntity;
+import com.taru.users.exception.ResourceNotFoundException;
+import com.taru.users.exception.UserAlreadyExistsException;
 import com.taru.users.mapper.UserMapper;
 import com.taru.users.repository.UserRepository;
 import com.taru.users.service.UserService;
@@ -23,7 +25,7 @@ public class UserServiceImpl implements UserService {
         Optional<UserEntity> optionalUser = userRepository.findByUsername(user.getUsername());
 
         if (optionalUser.isPresent()) {
-            throw new RuntimeException("User already registered with given username "
+            throw new UserAlreadyExistsException("User already registered with given username: "
                     + user.getUsername());
         }
 
@@ -34,7 +36,7 @@ public class UserServiceImpl implements UserService {
     public UserDTO getUserByUsername(String username) {
 
         UserEntity user = userRepository.findByUsername(username).orElseThrow(
-                () -> new RuntimeException("User with username: " + username + " - not found!")
+                () -> new ResourceNotFoundException("User", "username", username)
         );
 
         return UserMapper.mapToDto(user);
@@ -44,7 +46,7 @@ public class UserServiceImpl implements UserService {
     public UserDTO updateUserByUsername(String username, UserDTO userDTO) {
 
         UserEntity user = userRepository.findByUsername(username).orElseThrow(
-                () -> new RuntimeException("User with username: " + username + " - not found!")
+                () -> new ResourceNotFoundException("User", "username", username)
         );
 
         user.setEmail(userDTO.getEmail());
@@ -57,7 +59,7 @@ public class UserServiceImpl implements UserService {
     public void deleteUserByUsername(String username) {
 
         UserEntity user = userRepository.findByUsername(username).orElseThrow(
-                () -> new RuntimeException("User with username: " + username + " - not found!")
+                () -> new ResourceNotFoundException("User", "username", username)
         );
 
         userRepository.deleteById(user.getUserId());
