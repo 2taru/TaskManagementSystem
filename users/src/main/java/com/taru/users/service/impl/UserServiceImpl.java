@@ -1,5 +1,6 @@
 package com.taru.users.service.impl;
 
+import com.taru.users.dto.UpdateUserDTO;
 import com.taru.users.dto.UserDTO;
 import com.taru.users.entity.UserEntity;
 import com.taru.users.exception.ResourceNotFoundException;
@@ -43,7 +44,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO updateUserByUsername(String username, UserDTO userDTO) {
+    public UserDTO updateUserByUsername(String username, UpdateUserDTO userDTO) {
 
         UserEntity user = userRepository.findByUsername(username).orElseThrow(
                 () -> new ResourceNotFoundException("User", "username", username)
