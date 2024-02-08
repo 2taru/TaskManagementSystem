@@ -8,7 +8,6 @@ import com.taru.users.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,18 +17,17 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     @Override
-    public UserDTO createUser(UserDTO userDTO) {
+    public void createUser(UserDTO userDTO) {
 
         UserEntity user = UserMapper.mapToEntity(userDTO);
         Optional<UserEntity> optionalUser = userRepository.findByUsername(user.getUsername());
 
-        if (optionalUser.isPresent()){
+        if (optionalUser.isPresent()) {
             throw new RuntimeException("User already registered with given username "
                     + user.getUsername());
         }
 
-        UserEntity savedUser = userRepository.save(user);
-        return UserMapper.mapToDto(savedUser);
+        userRepository.save(user);
     }
 
     @Override
@@ -43,22 +41,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserDTO> getAllUsers() {
-
-        List<UserEntity> users = userRepository.findAll();
-
-        return users.stream()
-                .map(UserMapper::mapToDto).toList();
-    }
-
-    @Override
-    public UserDTO updateUser(String username, UserDTO userDTO) {
+    public UserDTO updateUserByUsername(String username, UserDTO userDTO) {
 
         UserEntity user = userRepository.findByUsername(username).orElseThrow(
                 () -> new RuntimeException("User with username: " + username + " - not found!")
         );
 
-        user.setUsername(userDTO.getUsername());
         user.setEmail(userDTO.getEmail());
 
         UserEntity updatedUser = userRepository.save(user);
@@ -66,14 +54,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean deleteUser(String username) {
+    public void deleteUserByUsername(String username) {
 
         UserEntity user = userRepository.findByUsername(username).orElseThrow(
                 () -> new RuntimeException("User with username: " + username + " - not found!")
         );
 
         userRepository.deleteById(user.getUserId());
-
-        return true;
     }
 }

@@ -2,18 +2,14 @@ package com.taru.users.service;
 
 import com.taru.users.dto.UserDTO;
 
-import java.util.List;
-
 public interface UserService {
 
-    UserDTO createUser(UserDTO userDTO);
+    void createUser(UserDTO userDTO);
 
     UserDTO getUserByUsername(String username);
 
-    List<UserDTO> getAllUsers();
+    UserDTO updateUserByUsername(String username, UserDTO userDTO);
 
-    UserDTO updateUser(String username, UserDTO userDTO);
-
-    boolean deleteUser(String username);
+    void deleteUserByUsername(String username);
 
 }
