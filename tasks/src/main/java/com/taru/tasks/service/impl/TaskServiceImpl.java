@@ -30,19 +30,6 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public TaskDTO getTaskByAssignedUser(String username) {
-
-        //TODO
-        //Check if username is valid
-
-        Task task = taskRepository.findByAssignedTo(username).orElseThrow(
-                () -> new ResourceNotFoundException("Task", "assignedTo", username)
-        );
-
-        return TaskMapper.mapToDto(task);
-    }
-
-    @Override
     public TaskDTO getTaskById(long taskId) {
 
         Task task = taskRepository.findById(taskId).orElseThrow(

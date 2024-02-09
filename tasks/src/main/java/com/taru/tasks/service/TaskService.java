@@ -9,8 +9,6 @@ public interface TaskService {
 
     void createTask(TaskDTO taskDTO);
 
-    TaskDTO getTaskByAssignedUser(String username);
-
     TaskDTO getTaskById(long taskId);
 
     List<TaskDTO> getAllTasks();
