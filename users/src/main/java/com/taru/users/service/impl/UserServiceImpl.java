@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
                 () -> new ResourceNotFoundException("User", "username", username)
         );
 
-        return UserMapper.mapToDto(user);
+        return UserMapper.mapToDTO(user);
     }
 
     @Override
@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
         user.setEmail(userDTO.getEmail());
 
         UserEntity updatedUser = userRepository.save(user);
-        return UserMapper.mapToDto(updatedUser);
+        return UserMapper.mapToDTO(updatedUser);
     }
 
     @Override

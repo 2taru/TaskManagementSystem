@@ -5,7 +5,7 @@ import com.taru.users.entity.UserEntity;
 
 public class UserMapper {
 
-    public static UserDTO mapToDto(UserEntity user) {
+    public static UserDTO mapToDTO(UserEntity user) {
         UserDTO userDTO = new UserDTO();
         userDTO.setUsername(user.getUsername());
         userDTO.setEmail(user.getEmail());

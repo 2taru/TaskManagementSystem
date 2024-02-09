@@ -1,7 +1,7 @@
 package com.taru.users.controller;
 
-import com.taru.users.dto.ErrorResponseDto;
-import com.taru.users.dto.ResponseDto;
+import com.taru.users.dto.ErrorResponseDTO;
+import com.taru.users.dto.ResponseDTO;
 import com.taru.users.dto.UpdateUserDTO;
 import com.taru.users.dto.UserDTO;
 import com.taru.users.service.UserService;
@@ -44,24 +44,24 @@ public class UserController {
                     responseCode = "400",
                     description = "HTTP Status BAD_REQUEST",
                     content = @Content(
-                            schema = @Schema(implementation = ErrorResponseDto.class)
+                            schema = @Schema(implementation = ErrorResponseDTO.class)
                     )
             ),
             @ApiResponse(
                     responseCode = "500",
                     description = "HTTP INTERNAL_SERVER_ERROR",
                     content = @Content(
-                            schema = @Schema(implementation = ErrorResponseDto.class)
+                            schema = @Schema(implementation = ErrorResponseDTO.class)
                     )
             )
     })
     @PostMapping("/create")
-    public ResponseEntity<ResponseDto> createUser(@Valid @RequestBody UserDTO userDTO) {
+    public ResponseEntity<ResponseDTO> createUser(@Valid @RequestBody UserDTO userDTO) {
 
         userService.createUser(userDTO);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(new ResponseDto("201", "User created successfully!"));
+                .body(new ResponseDTO("201", "User created successfully!"));
     }
 
     @Operation(
@@ -77,14 +77,14 @@ public class UserController {
                     responseCode = "404",
                     description = "HTTP Status NOT_FOUND",
                     content = @Content(
-                            schema = @Schema(implementation = ErrorResponseDto.class)
+                            schema = @Schema(implementation = ErrorResponseDTO.class)
                     )
             ),
             @ApiResponse(
                     responseCode = "500",
                     description = "HTTP Status INTERNAL_SERVER_ERROR",
                     content = @Content(
-                            schema = @Schema(implementation = ErrorResponseDto.class)
+                            schema = @Schema(implementation = ErrorResponseDTO.class)
                     )
             )
     })
@@ -111,14 +111,14 @@ public class UserController {
                     responseCode = "404",
                     description = "HTTP Status NOT_FOUND",
                     content = @Content(
-                            schema = @Schema(implementation = ErrorResponseDto.class)
+                            schema = @Schema(implementation = ErrorResponseDTO.class)
                     )
             ),
             @ApiResponse(
                     responseCode = "500",
                     description = "HTTP Status INTERNAL_SERVER_ERROR",
                     content = @Content(
-                            schema = @Schema(implementation = ErrorResponseDto.class)
+                            schema = @Schema(implementation = ErrorResponseDTO.class)
                     )
             )
     })
@@ -145,24 +145,24 @@ public class UserController {
                     responseCode = "404",
                     description = "HTTP Status NOT_FOUND",
                     content = @Content(
-                            schema = @Schema(implementation = ErrorResponseDto.class)
+                            schema = @Schema(implementation = ErrorResponseDTO.class)
                     )
             ),
             @ApiResponse(
                     responseCode = "500",
                     description = "HTTP Status INTERNAL_SERVER_ERROR",
                     content = @Content(
-                            schema = @Schema(implementation = ErrorResponseDto.class)
+                            schema = @Schema(implementation = ErrorResponseDTO.class)
                     )
             )
     })
     @DeleteMapping("/{username}/delete")
-    public ResponseEntity<ResponseDto> deleteUserByUsername(@PathVariable("username") String username) {
+    public ResponseEntity<ResponseDTO> deleteUserByUsername(@PathVariable("username") String username) {
 
         userService.deleteUserByUsername(username);
 
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(new ResponseDto("200", "User deleted successfully!"));
+                .body(new ResponseDTO("200", "User deleted successfully!"));
     }
 }
