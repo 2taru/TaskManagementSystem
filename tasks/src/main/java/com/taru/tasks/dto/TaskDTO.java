@@ -7,6 +7,8 @@ import java.time.LocalDateTime;
 @Data
 public class TaskDTO {
 
+    private Long taskId;
+
     private String assignedTo;
 
     private String title;

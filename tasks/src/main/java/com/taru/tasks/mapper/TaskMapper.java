@@ -8,6 +8,7 @@ public class TaskMapper {
     public static TaskDTO mapToDto(Task task) {
 
         TaskDTO taskDTO = new TaskDTO();
+        taskDTO.setTaskId(task.getTaskId());
         taskDTO.setAssignedTo(task.getAssignedTo());
         taskDTO.setTitle(task.getTitle());
         taskDTO.setDescription(task.getDescription());
